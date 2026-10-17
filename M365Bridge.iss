@@ -9,9 +9,11 @@
 #endif
 ; ==============================================================================
 
+#define ReleaseVersion "1.0.0"
+
 [Setup]
 AppName=M365 Bridge
-AppVersion=1.0.0
+AppVersion={#ReleaseVersion}
 AppPublisher=Max Michaels
 AppPublisherURL=https://github.com/Fireant456/M365-Bridge
 AppSupportURL=https://github.com/Fireant456/M365-Bridge/issues
@@ -21,7 +23,7 @@ DefaultGroupName=M365 Bridge
 Compression=lzma2
 SolidCompression=yes
 OutputDir=Output
-OutputBaseFilename=M365BridgeInstaller_{#AppVersion}
+OutputBaseFilename=M365BridgeInstaller_{#ReleaseVersion}
 ChangesAssociations=yes
 PrivilegesRequired=admin
 UninstallDisplayIcon={app}\m365.ico
