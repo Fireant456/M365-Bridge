@@ -31,7 +31,7 @@ jobs:
           if ($versionLine) {
               $version = ($versionLine -split '\s+')[2].Replace('"', '').Trim()
               Write-Host "Found version string in M365Bridge.iss: $version"
-              [System.IO.File]::AppendAllLines($env:GITHUB_OUTPUT, "VERSION=$version")
+              echo "VERSION=$version" >> $env:GITHUB_OUTPUT
           } else {
               Write-Error "Could not locate 'ReleaseVersion' key within M365Bridge.iss file."
               exit 1
