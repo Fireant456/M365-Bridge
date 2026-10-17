@@ -20,14 +20,19 @@ jobs:
         id: get_version
         shell: powershell
         run: |
-          $issContent = Get-Content ./M365Bridge.iss
-          if ($issContent -match 'AppVersion=([^\r\n]+)') {
+          $targetFile = "./M365Bridge.iss"
+          if (-not (Test-Path $targetFile)) {
+              Write-Error "Critical Build Failure: Missing configuration asset at $targetFile"
+              exit 1
+          }
+
+          $issContent = Get-Content $targetFile
+          if ($issContent -match '#define\s+AppVersionStr\s+"([^"]+)"') {
               $version = $Matches[1].Trim()
               Write-Host "Found version string in M365Bridge.iss: $version"
-              # Export the found variable to the GitHub Actions output environment
               echo "VERSION=$version" >> $env:GITHUB_OUTPUT
           } else {
-              Write-Error "Could not locate 'AppVersion=' key within M365Bridge.iss file."
+              Write-Error "Could not locate '#define AppVersionStr' definition within M365Bridge.iss file."
               exit 1
           }
 
