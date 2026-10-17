@@ -1,0 +1,48 @@
+name: Build and Publish Release
+
+on:
+  push:
+    tags:
+      - 'v*'
+
+jobs:
+  build-and-release:
+    name: Compile and Release Installer
+    runs-on: windows-latest
+    permissions:
+      contents: write
+
+    steps:
+      - name: Check out Repository Code
+        uses: actions/checkout@v4
+
+      - name: Extract Version Number from ISS File
+        id: get_version
+        shell: powershell
+        run: |
+          $issContent = Get-Content ./M365Bridge.iss
+          if ($issContent -match 'AppVersion=([^\r\n]+)') {
+              $version = $Matches[1].Trim()
+              Write-Host "Found version string in M365Bridge.iss: $version"
+              # Export the found variable to the GitHub Actions output environment
+              echo "VERSION=$version" >> $env:GITHUB_OUTPUT
+          } else {
+              Write-Error "Could not locate 'AppVersion=' key within M365Bridge.iss file."
+              exit 1
+          }
+
+      - name: Compile Inno Setup Script
+        uses: Minionguyjpro/Inno-Setup-Action@v1.2.2
+        with:
+          path: ./M365Bridge.iss
+          options: /o+
+
+      - name: Create GitHub Release and Upload Artifact
+        uses: softprops/action-gh-release@v2
+        with:
+          files: Output/M365BridgeInstaller_*.exe
+          name: "M365 Bridge ${{ steps.get_version.outputs.VERSION }}"
+          draft: false
+          prerelease: false
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
