@@ -27,12 +27,12 @@ jobs:
           }
 
           $issContent = Get-Content $targetFile
-          if ($issContent -match '#define\s+AppVersionStr\s+"([^"]+)"') {
+          if ($issContent -match 'AppVersion=([^\r\n]+)') {
               $version = $Matches[1].Trim()
               Write-Host "Found version string in M365Bridge.iss: $version"
               echo "VERSION=$version" >> $env:GITHUB_OUTPUT
           } else {
-              Write-Error "Could not locate '#define AppVersionStr' definition within M365Bridge.iss file."
+              Write-Error "Could not locate 'AppVersion=' key within M365Bridge.iss file."
               exit 1
           }
 
