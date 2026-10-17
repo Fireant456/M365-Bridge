@@ -26,9 +26,10 @@ jobs:
               exit 1
           }
 
-          $issContent = Get-Content $targetFile
-          if ($issContent -match 'AppVersion=([^\r\n]+)') {
-              $version = $Matches[1].Trim()
+          $versionLine = Get-Content $targetFile | Where-Object { $_ -match "^AppVersion=" }
+
+          if ($versionLine) {
+              $version = ($versionLine -split '=')[1].Trim()
               Write-Host "Found version string in M365Bridge.iss: $version"
               echo "VERSION=$version" >> $env:GITHUB_OUTPUT
           } else {
