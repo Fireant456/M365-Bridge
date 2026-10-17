@@ -26,14 +26,14 @@ jobs:
               exit 1
           }
 
-          $versionLine = Get-Content $targetFile | Where-Object { $_ -match "^AppVersion=" }
+          $versionLine = Get-Content $targetFile | Where-Object { $_ -match "^#define\s+ReleaseVersion" }
 
           if ($versionLine) {
-              $version = ($versionLine -split '=')[1].Trim()
+              $version = ($versionLine -split '\s+')[2].Replace('"', '').Trim()
               Write-Host "Found version string in M365Bridge.iss: $version"
-              echo "VERSION=$version" >> $env:GITHUB_OUTPUT
+              [System.IO.File]::AppendAllLines($env:GITHUB_OUTPUT, "VERSION=$version")
           } else {
-              Write-Error "Could not locate 'AppVersion=' key within M365Bridge.iss file."
+              Write-Error "Could not locate 'ReleaseVersion' key within M365Bridge.iss file."
               exit 1
           }
 
