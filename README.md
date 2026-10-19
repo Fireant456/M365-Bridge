@@ -67,6 +67,10 @@ End users or system administrators can globally default file structures cleanly 
 
 Alternitively users can select the Word Web, Excel Web, PowerPoint Web, or Visio Web at the first open of the respective file types.
 
+## Looking for a solution on Mac OS?
+
+This solution was in part inspired by https://github.com/bewithdhanu/office-online-bridge-macos. If you are not on Windows and looking for a MacOS compatible solution, this was the only other solution I personally could find.
+
 ## License
 
 This project is licensed under the **GNU General Public License v3 (GPLv3)**. See the `LICENSE` file for more details. Build toolchains and external compilation scripts conform to open linking exceptions.
