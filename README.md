@@ -11,6 +11,12 @@ If a file is synced, it natively invokes the cloud "View Online" web canvas. If 
 - **Deep Windows Integration:** Registers across 19 standard, legacy, and macro-enabled extensions (`.docx`, `.docm`, `.doc`, `.xlsx`, `.xlsm`, `.xls`, `.pptx`, `.pptm`, `.ppt`, `.vsdx`, etc.).
 - **Windows Default Apps Aware:** Fully registers with the Windows Application Capabilities manager so users or administrators can manage defaults natively via Windows Settings.
 
+## Installation and Requirements
+
+You can easily get up and running with this simple solution by heading over the [GitHub Releases page](https://github.com/Fireant456/M365-Bridge/releases). Download the latest `M365BridgeInstaller_x.x.x.exe` file and run it on any system you want to install it on.
+
+The only requirement is that you have OneDrive setup and any file you want to open with the bridge is synced in a OneDrive folder. Windows 10 and newer comes with OneDrive so it should be as simple as making sure you are logged in and your files are in the designated folder (typically `C:\users\{username}\OneDrive\`) or your backed up folders that are also being synced to OneDrive (configurable in the OneDrive Settings).
+
 ## Project Structure
 
 ```text
